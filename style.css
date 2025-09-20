@@ -1,0 +1,177 @@
+/* 全域設定 */
+body {
+  font-family: "Microsoft JhengHei", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 導覽列 */
+nav {
+  background: #48dbfb;
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+nav ul li {
+  margin: 0 15px;
+}
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s;
+  cursor: pointer;   /* 滑鼠移過去會變成手的圖案 */
+}
+nav ul li a:hover {
+  color: #222;
+  background: rgba(255,255,255,0.3); /* 滑鼠移上去有底色 */
+}
+
+/* 🔥 高亮狀態 */
+nav ul li a.active {
+  background: #1dd1a1; /* 綠色背景 */
+  color: #fff;         /* 白字 */
+}
+
+/* 大標題區塊 */
+.header-banner {
+  background: linear-gradient(135deg, #48dbfb, #ff9ff3);
+  width: 100%;
+  height: 150px; /* 扣掉 nav 高度 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 靠上對齊 */
+  align-items: center;         /* 水平置中 */
+  text-align: center;
+  padding-top: 60px;           /* nav 高度空間 */
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.main-title {
+  font-size: 3rem;
+  color: black;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 10px 0 0 0;
+}
+
+
+
+/* 區塊卡片 */
+.card {
+  background: #fff;
+  margin: 30px auto;
+  padding: 20px;
+  max-width: 800px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+.card h2 {
+  margin-top: 0;
+  color: #48dbfb;
+}
+
+/* 按鈕 */
+button {
+  background: #1dd1a1;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s, transform 0.2s;
+}
+button:hover {
+  background: #10ac84;
+  transform: scale(1.05);
+}
+
+/* 頁尾 */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #48dbfb;
+  color: #fff;
+  margin-top: 40px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.page {
+  display: none; /* 預設隱藏 */
+  padding: 40px;
+  text-align: center;
+}
+
+.page.active {
+  display: block; /* 顯示 */
+}
+
+/* 自我介紹頁面容器 */
+.intro-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+/* 左邊照片 */
+.intro-photo img {
+  width: 180px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* 右邊表格區 */
+.intro-info {
+  flex: 1; /* 讓表格撐滿剩餘寬度 */
+}
+
+/* 表格樣式 */
+.intro-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.intro-table th,
+.intro-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.intro-table th {
+  background-color: #f0f0f0;
+}
+
+.intro-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌟 網路應用程式 🌟</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 導覽列 -->
+<nav>
+  <ul>
+    <li><a data-page="home">🏠 回首頁</a></li>
+    <li><a data-page="intro">●自我介紹</a></li>
+    <li><a data-page="remote">●遠端控制</a></li>
+    <li><a data-page="health">●健康管理</a></li>
+  </ul>
+</nav>
+
+<!-- 各個頁面 -->
+
+<div id="intro" class="page">
+  <h2>👩 自我介紹</h2>
+
+  <div class="intro-container">
+    <!-- 左邊照片 -->
+    <div class="intro-photo">
+      <img src="C:\Users\user\Desktop\網路應用設計\123.png" alt="我的照片">
+    </div>
+
+    <!-- 右邊表格 -->
+    <div class="intro-info">
+      <table class="intro-table">
+        <tr>
+          <td>姓名</td>
+          <td>林詩婷</td>
+        </tr>
+        <tr>
+          <td>班級</td>
+          <td>進四技電子三乙</td>
+        </tr>
+        <tr>
+          <td>學號</td>
+          <td>C112252224</td>
+        </tr>
+        <tr>
+          <td>專案經驗</td>
+          <td>影像辨識</td>
+        </tr>
+        <tr>
+          <td>興趣</td>
+          <td>程式設計、運動</td>
+        </tr>
+        <tr>
+          <td>聯絡方式</td>
+          <td>
+            Email: c112252224@nkust.edu.tw<br>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="remote" class="page">
+    <h2>遠端控制</h2>
+    <img id="esp32-stream" src="http://192.168.1.120/stream" alt="ESP32 即時影像" style="width:640px; border:1px solid #ccc;"><br><br>
+
+    <button onclick="controlLed('green', true)">綠燈 ON</button>
+    <button onclick="controlLed('green', false)">綠燈 OFF</button><br>
+    <button onclick="controlLed('yellow', true)">黃燈 ON</button>
+    <button onclick="controlLed('yellow', false)">黃燈 OFF</button><br>
+    <button onclick="controlLed('red', true)">紅燈 ON</button>
+    <button onclick="controlLed('red', false)">紅燈 OFF</button><br><br>
+
+    <p id="device-status">LED 狀態：---</p>
+  </div>
+
+  <!-- 大標題區塊 -->
+<header id="home" class="header-banner">
+  <h1 class="main-title">🌈 Welcome to My World 🌈</h1>
+  <p class="subtitle">探索科技、健康與遠端控制的世界</p>
+</header>
+
+<!-- 首頁下方內容，改成 class 不用 id -->
+<section class="home-card">
+  <section class="card">
+    <h2>👩 自我介紹</h2>
+    <p>Hello！我是林詩婷。我正在學習網頁開發，這個網站就是我的練習作品！</p>
+  </section>
+
+  <section class="card">
+    <h2>🌐 遠端控制</h2>
+    <p>這裡未來會整合我的 IoT 專案，透過網頁來控制設備。</p>
+  </section>
+
+  <section class="card">
+    <h2>💪 健康管理</h2>
+    <p>這裡記錄我的血壓參考差異。健康生活，快樂每一天！</p>
+  </section>
+</section>
+
+  <footer>
+    <p>© 2025 我的網站</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
