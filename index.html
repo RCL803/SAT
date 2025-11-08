@@ -91,84 +91,93 @@
     </div>
   </div>
 
-  <!-- 遠端控制頁 -->
+<!-- 遠端控制頁 -->
 <div id="remote" class="page">
-  <h2>🌐遠端控制</h2>
+  <h2>🌐 遠端控制</h2>
+  
 
-  <!-- 嵌入 ESP32 Web 控制頁面 -->
-  <iframe 
-      src="http://172.20.10.3" 
-      style="width:660px; height:600px; border:1px solid #ccc;"
-      title="ESP32 控制視窗">
-  </iframe>
+  <!-- 🎥 筆電鏡頭畫面放在最上方 -->
+  <h3>🎥 鏡頭畫面</h3>
+  <video id="camera" width="480" height="360" autoplay playsinline></video>
+
+  <hr>
+
+  <!-- 控制面板 -->
+  <div class="control-panel">
+    <h3>遠端控制</h3>
+    <button onclick="controlLed(true)">🟢 LED ON</button>
+    <button onclick="controlLed(false)">⚪ LED OFF</button>
+  </div>
 </div>
 
   <!-- 健康管理頁 -->
   <div id="health" class="page">
     <h2>💪 健康管理</h2>
-    <p>這裡可以放血壓或運動相關資訊。</p>
+    <p>這裡可以放血壓或運動紀錄。</p>
   </div>
 
   <footer>
-    <p>© 2025 我的網站</p>
+    <p>© 2025 林詩婷的網站</p>
   </footer>
 
+  <!-- JavaScript 主控制 -->
   <script>
+    // === 🔹 設定你的 ESP32 IP（或 ngrok URL） ===
+    const ESP32_IP = "http://172.20.10.3"; // ← 改成你的 ESP32 IP！
+
+    const deviceStatus = document.getElementById("device-status");
+
+    // === 🔹 控制 ESP32 上的 LED ===
+    async function controlLed(state) {
+      const url = state ? `${ESP32_IP}/green/on` : `${ESP32_IP}/green/off`;
+      const text = state ? "🟢 LED 已開啟" : "⚪ LED 已關閉";
+      try {
+        const res = await fetch(url);
+        if (res.ok) {
+          deviceStatus.innerText = "設備狀態：" + text;
+        } else {
+          deviceStatus.innerText = "設備狀態：控制失敗 (HTTP " + res.status + ")";
+        }
+      } catch (err) {
+        deviceStatus.innerText = "設備狀態：無法連線 ESP32";
+        console.error(err);
+      }
+    }
+
+    // === 🔹 啟用筆電鏡頭 ===
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.getElementById('camera');
+        video.srcObject = stream;
+      } catch (err) {
+        alert("無法啟動鏡頭：" + err.message);
+        console.error(err);
+      }
+    }
+
+    // === 🔹 導覽列切換頁面 ===
     const links = document.querySelectorAll('nav a');
     const pages = document.querySelectorAll('.page');
     const home = document.getElementById('home');
     const homeCards = document.querySelector('.home-card');
-    const esp32Stream = document.getElementById("esp32-stream");
-    const deviceStatus = document.getElementById("device-status");
-    const esp32_ip = "http://172.20.10.3";
 
-    // LED 控制 (ON/OFF)
-    function controlLed(color, state) {
-      fetch(`${esp32_ip}/${state ? 'on' : 'off'}/${color}`)
-        .then(res => res.text())
-        .then(text => {
-          deviceStatus.innerText = `LED ${color}: ${text}`;
-          // 刷新影像
-          if (esp32Stream) esp32Stream.src = `${esp32_ip}/stream?time=${Date.now()}`;
-        })
-        .catch(err => {
-          deviceStatus.innerText = `LED ${color}: 錯誤`;
-          console.error(err);
-        });
-    }
-
-    // 遠端影像刷新函式
-    function refreshStream() {
-      if (esp32Stream) {
-        esp32Stream.src = `${esp32_ip}/stream?time=${Date.now()}`;
-      }
-    }
-
-    // 顯示指定頁面
     function showPage(targetPage) {
       pages.forEach(page => page.style.display = "none");
-
-      if (targetPage === "home") {
+      if (targetPage === 'home') {
         home.style.display = "flex";
         homeCards.style.display = "block";
       } else {
         home.style.display = "none";
         homeCards.style.display = "none";
-
         const page = document.getElementById(targetPage);
         if (page) page.style.display = "block";
-
-        if (targetPage === "remote") {
-          refreshStream();
-        }
       }
-
       links.forEach(l => l.classList.remove("active"));
       const activeLink = Array.from(links).find(l => l.dataset.page === targetPage);
       if (activeLink) activeLink.classList.add("active");
     }
 
-    // 導覽列事件
     links.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
@@ -176,8 +185,11 @@
       });
     });
 
-    // 預設顯示首頁
-    showPage('home');
+    // === 🔹 頁面載入後自動執行 ===
+    window.addEventListener('load', () => {
+      showPage('home');  // 預設首頁
+      startCamera();     // 啟動筆電鏡頭
+    });
   </script>
 </body>
 </html>
