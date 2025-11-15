@@ -94,6 +94,10 @@
 <!-- 遠端控制頁 -->
 <div id="remote" class="page">
   <h2>🌐 遠端控制</h2>
+
+  <iframe width="100%" height="500" src="https://blynk.cloud/embed/928360" frameborder="0"></iframe>
+
+
   
 
   <!-- 🎥 筆電鏡頭畫面放在最上方 -->
@@ -107,6 +111,8 @@
     <h3>遠端控制</h3>
     <button onclick="controlLed(true)">🟢 LED ON</button>
     <button onclick="controlLed(false)">⚪ LED OFF</button>
+
+    <p id="device-status">設備狀態：等待控制中…</p>
   </div>
 </div>
 
@@ -122,39 +128,45 @@
 
   <!-- JavaScript 主控制 -->
   <script>
-    // === 🔹 設定你的 ESP32 IP（或 ngrok URL） ===
-    const ESP32_IP = "http://172.20.10.3"; // ← 改成你的 ESP32 IP！
+  // === 🔹 你的 Blynk Token 與虛擬腳位 ===
+  const BLYNK_TOKEN = "7lFK7m4x3fAqBOpM26TScCG-ViGz1LBl";  
+  const VIRTUAL_PIN = "V1";  // LED 控制腳位
 
-    const deviceStatus = document.getElementById("device-status");
+  const deviceStatus = document.getElementById("device-status");
 
-    // === 🔹 控制 ESP32 上的 LED ===
-    async function controlLed(state) {
-      const url = state ? `${ESP32_IP}/green/on` : `${ESP32_IP}/green/off`;
-      const text = state ? "🟢 LED 已開啟" : "⚪ LED 已關閉";
-      try {
-        const res = await fetch(url);
-        if (res.ok) {
-          deviceStatus.innerText = "設備狀態：" + text;
-        } else {
-          deviceStatus.innerText = "設備狀態：控制失敗 (HTTP " + res.status + ")";
-        }
-      } catch (err) {
-        deviceStatus.innerText = "設備狀態：無法連線 ESP32";
-        console.error(err);
-      }
+  // === 🔹 控制 LED（透過 Blynk API） ===
+  async function controlLed(state) {
+  const value = state ? 1 : 0;
+  const url = `https://blynk.cloud/external/api/update?token=${BLYNK_TOKEN}&${VIRTUAL_PIN}=${value}`;
+
+  const text = state ? "🟢 LED 已開啟" : "⚪ LED 已關閉";
+
+  try {
+    const res = await fetch(url);
+    if (res.ok) {
+      deviceStatus.innerText = "設備狀態：" + text;
+    } else {
+      deviceStatus.innerText = "設備狀態：控制失敗 (HTTP " + res.status + ")";
     }
+  } catch (err) {
+    deviceStatus.innerText = "設備狀態：無法連線 Blynk 伺服器";
+    console.error(err);
+  }
+}
 
-    // === 🔹 啟用筆電鏡頭 ===
-    async function startCamera() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        const video = document.getElementById('camera');
-        video.srcObject = stream;
-      } catch (err) {
-        alert("無法啟動鏡頭：" + err.message);
-        console.error(err);
-      }
+  
+
+  // === 🔹 啟動筆電鏡頭 ===
+  async function startCamera() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const video = document.getElementById('camera');
+      video.srcObject = stream;
+    } catch (err) {
+      alert("無法啟動鏡頭：" + err.message);
+      console.error(err);
     }
+  }
 
     // === 🔹 導覽列切換頁面 ===
     const links = document.querySelectorAll('nav a');
