@@ -95,10 +95,33 @@
 <div id="remote" class="page">
   <h2>🌐 遠端控制</h2>
 
+  <!-- 🎥 筆電鏡頭畫面放在最上方 -->
   <h3>🎥 鏡頭畫面</h3>
-  <video id="camera" width="480" height="360" autoplay playsinline></video>
+  <img id="snapshot" width="450" height="330">
 
   <hr>
+  <script>
+  // ======== 本地圖片列表（照你的檔名修改）========
+  const images = [
+    "2222.png",
+    "1111.png"
+  ];
+
+  // 當前圖片索引
+  let index = 0;
+
+  // 更新圖片函式
+  function updateSnapshot() {
+    document.getElementById("snapshot").src = images[index];
+    index = (index + 1) % images.length; // 循環切換圖片
+  }
+
+  // 啟動時顯示第一張
+  updateSnapshot();
+
+  // 每 5 秒更換一次
+  setInterval(updateSnapshot, 8000);
+</script>
 
   <!-- 控制面板 -->
   <div class="control-panel">
@@ -148,19 +171,7 @@
   }
 }
 
-  
 
-  // === 🔹 啟動筆電鏡頭 ===
-  async function startCamera() {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const video = document.getElementById('camera');
-      video.srcObject = stream;
-    } catch (err) {
-      alert("無法啟動鏡頭：" + err.message);
-      console.error(err);
-    }
-  }
 
     // === 🔹 導覽列切換頁面 ===
     const links = document.querySelectorAll('nav a');
