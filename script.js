@@ -5,7 +5,7 @@ const home = document.getElementById('home'); // 首頁 header-banner
 const homeCards = document.querySelector('.home-card'); // 首頁下方內容
 const deviceStatus = document.getElementById("device-status"); // 顯示設備狀態的區域
 const esp32Stream = document.getElementById('camera'); // 顯示即時影像的區域
-
+const socket = new WebSocket("ws://localhost:8000/ws");
 // ===== 預設首頁 =====
 home.style.display = "flex";
 homeCards.style.display = "block";
@@ -70,3 +70,22 @@ setInterval(() => {
     refreshStream();
   }
 }, 1000);
+
+// 更新血壓結果顯示
+function updateBpResult(sys, dia, result) {
+    document.getElementById('sys').innerText = "SYS: " + sys;
+    document.getElementById('dia').innerText = "DIA: " + dia;
+    document.getElementById('status').innerText = "結果：" + result;
+}
+
+// WebSocket 處理接收到的訊息
+socket.onmessage = function(event) {
+    const message = event.data;
+    const [sys, dia, result, imageUrl] = message.split(', ');
+
+    // 更新血壓結果
+    updateBpResult(sys, dia, result);
+
+    // 顯示血壓照片
+    document.getElementById('bp-photo').src = imageUrl;  // 使用收到的圖片 URL
+};
