@@ -95,12 +95,34 @@
 <div id="remote" class="page">
   <h2>🌐 遠端控制</h2>
 
+  <!-- 🎥 筆電鏡頭畫面放在最上方 -->
   <h3>🎥 鏡頭畫面</h3>
-  <video id="VD" width="450" height="330">
+  <img id="snapshot" width="450" height="330">
 
   <hr>
   <script>
-  
+  // ======== 本地圖片列表（照你的檔名修改）========
+  const images = [
+    "2222.png",
+    "1111.png"
+  ];
+
+  // 當前圖片索引
+  let index = 0;
+
+  // 更新圖片函式
+  function updateSnapshot() {
+    document.getElementById("snapshot").src = images[index];
+    index = (index + 1) % images.length; // 循環切換圖片
+  }
+
+  // 啟動時顯示第一張
+  updateSnapshot();
+
+  // 每 5 秒更換一次
+  setInterval(updateSnapshot, 8000);
+</script>
+
   <!-- 控制面板 -->
   <div class="control-panel">
     <h3>遠端控制</h3>
@@ -114,8 +136,15 @@
   <!-- 健康管理頁 -->
   <div id="health" class="page">
     <h2>💪 健康管理</h2>
-    <p>這裡可以放血壓或運動紀錄。</p>
+    <div id="bp-results">
+    <h3>📊 血壓辨識結果</h3>
+    <p id="sys">SYS: </p>
+    <p id="dia">DIA: </p>
+    <p id="status">結果： </p>
+    <img id="bp-photo" src="" alt="血壓照片" width="300">
   </div>
+</div>
+  
 
   <footer>
     <p>© 2025 林詩婷的網站</p>
