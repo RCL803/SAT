@@ -145,22 +145,6 @@
   </div>
 </div>
 
-<script>
-// 假設您有一個 API 端點返回最新的血壓結果
-async function fetchBPResults() {
-    const response = await fetch('http://127.0.0.1:8000/latest-data');
-    const data = await response.json();
-
-    // 顯示血壓數據和圖片
-    document.getElementById('sys').innerText = "SYS: " + data.SYS;
-    document.getElementById('dia').innerText = "DIA: " + data.DIA;
-    document.getElementById('status').innerText = "結果: " + data.result;
-    document.getElementById('bp-photo').src = 'data:image/jpeg;base64,' + data.image;
-}
-
-// 頁面載入時自動呼叫
-window.onload = fetchBPResults;
-</script>
 
   <footer>
     <p>© 2025 林詩婷的網站</p>
