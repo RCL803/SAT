@@ -89,3 +89,33 @@ socket.onmessage = function(event) {
     // 顯示血壓照片
     document.getElementById('bp-photo').src = imageUrl;  // 使用收到的圖片 URL
 };
+async function fetchBPResults() {
+    try {
+        // 發送請求到後端
+        const response = await fetch('http://127.0.0.1:8000/latest-data');
+        
+        // 檢查請求是否成功
+        if (!response.ok) {
+            throw new Error("Failed to fetch data");
+        }
+
+        // 解析返回的 JSON 數據
+        const data = await response.json();
+
+        // 打印返回的數據，以便調試
+        console.log(data);  // 在控制台中查看返回的數據
+
+        // 顯示血壓數據和圖片
+        document.getElementById('sys').innerText = "SYS: " + data.SYS;
+        document.getElementById('dia').innerText = "DIA: " + data.DIA;
+        document.getElementById('status').innerText = "結果: " + data.result;
+
+        // 顯示圖片（如果有圖片數據）
+        document.getElementById('bp-photo').src = 'data:image/jpeg;base64,' + data.image;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+}
+
+// 頁面載入時自動呼叫
+window.onload = fetchBPResults;
