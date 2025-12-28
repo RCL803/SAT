@@ -24,7 +24,6 @@ frozenlist==1.8.0
 future==1.0.0
 h11==0.16.0
 idna==3.7
-inference-sdk==0.62.4
 kiwisolver==1.4.9
 line-bot-sdk==3.21.0
 marshmallow==3.26.1
