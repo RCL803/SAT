@@ -22,13 +22,12 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 async def callback(request: Request):
     body = await request.body()
     signature = request.headers.get("X-Line-Signature")
-
     try:
         handler.handle(body.decode("utf-8"), signature)
     except InvalidSignatureError:
         return "Invalid signature"
-
     return "OK"
+
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image(event):
@@ -87,7 +86,7 @@ async def websocket_endpoint(websocket: WebSocket):
             break
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8080)
 
 
 # 傳送資料到前端
