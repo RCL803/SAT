@@ -86,6 +86,10 @@ async def websocket_endpoint(websocket: WebSocket):
             print("Client disconnected")
             break
 
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+
 # 傳送資料到前端
 def send_to_frontend(SYS, DIA, result):
     # 您可以根據需要將資料發送到 WebSocket 或其他前端通訊方式
