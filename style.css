@@ -176,3 +176,115 @@ footer {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* 健康管理專用卡片 (繼承原本 card 的風格但更客製化) */
+.health-card {
+  background: #ffffff;
+  max-width: 450px;       /* 限制最大寬度，避免在電腦版太寬 */
+  width: 100%;
+  margin: 0 auto;         /* 讓卡片在頁面中間水平置中 */
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* 比原本的 card 陰影更深一點，更有層次 */
+  text-align: center;
+  position: relative;     /* 為了內部定位 */
+}
+
+/* 讓標題與你的網站風格一致 */
+.health-card h2 {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  font-family: "Microsoft JhengHei", sans-serif;
+}
+
+/* 區塊小標題 */
+.section-title {
+  font-size: 1rem;
+  color: #888;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+/* 數據儀表板 (並排顯示) */
+.stats-grid {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stat-item {
+  background: #f1f3f5;  /* 淡淡的灰色背景 */
+  padding: 15px;
+  border-radius: 15px;
+  flex: 1;              /* 兩個框框等寬 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px); /* 滑鼠移過去微微浮起 */
+  background: #e3f2fd;         /* 滑鼠移過去變淡藍色 */
+}
+
+.stat-item .label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.stat-item .value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  font-family: 'Roboto', sans-serif; /* 數字用 Roboto 比較好看 */
+}
+
+/* 結果狀態標籤 */
+.result-container {
+  margin-bottom: 30px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #eee;
+  color: #555;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* 照片區域優化 */
+.photo-section {
+  margin-top: 20px;
+  border-top: 1px solid #eee; /* 上面加一條淡淡的分隔線 */
+  padding-top: 20px;
+}
+
+.image-wrapper {
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  background-color: #f8f9fa;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* 讓圖片寬度自適應 */
+#bp-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
