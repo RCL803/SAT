@@ -94,7 +94,6 @@ fetch('https://api.github.com/repos/RCL803/SAT/commits?path=images&per_page=1')
     document.getElementById("bp-photo").src = imageUrl;
   })
   .catch(error => console.error('Error fetching latest image:', error));
-  });
 </script>
 
 // 頁面載入時自動呼叫
