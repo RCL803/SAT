@@ -134,42 +134,43 @@
 </div>
 
 <!-- 健康管理頁 -->
-
 <div id="health" class="page">
   <h2>💪 健康管理</h2>
+  
+  <!-- 血壓辨識結果區塊 -->
   <div id="bp-results">
     <h3>📊 血壓辨識結果</h3>
-    <p id="SYS">SYS: </p>
-    <p id="DIA">DIA: </p>
-    <p id="result">結果： </p>
+    
+    <div class="bp-data">
+      <p id="SYS">SYS: </p>
+      <p id="DIA">DIA: </p>
+      <p id="result">結果： </p>
+    </div>
+    
+    <!-- 顯示最新血壓照片 -->
     <h3>最新血壓量測照片</h3>
-    <img id="bp-photo" src="" alt="血壓照片" width="300">
+    <img id="bp-photo" src="" alt="血壓照片" width="300" class="bp-image">
   </div>
 </div>
+
 <script>
-fetch('https://raw.githubusercontent.com/RCL803/SAT/main/bp.json?t=' + Date.now())
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("SYS").textContent = "SYS: " + data.SYS;
-    document.getElementById("DIA").textContent = "DIA: " + data.DIA;
-    document.getElementById("result").textContent = "結果：" + data.result;
-  })
-  .catch(err => console.error('讀取血壓數據失敗:', err));
+  fetch('https://raw.githubusercontent.com/RCL803/SAT/main/bp.json?t=' + Date.now())
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("SYS").textContent = "SYS: " + data.SYS;
+      document.getElementById("DIA").textContent = "DIA: " + data.DIA;
+      document.getElementById("result").textContent = "結果：" + data.result;
+    })
+    .catch(err => console.error('讀取血壓數據失敗:', err));
 </script>
+
 <script>
-
-fetch('https://raw.githubusercontent.com/RCL803/SAT/main/latest.json?t=' + Date.now())
-
-  .then(res => res.json())
-
-  .then(data => {
-
-    document.getElementById("bp-photo").src = data.latest_image + '?t=' + Date.now();
-
-  })
-
-  .catch(err => console.error('讀取最新圖片失敗:', err));
-
+  fetch('https://raw.githubusercontent.com/RCL803/SAT/main/latest.json?t=' + Date.now())
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("bp-photo").src = data.latest_image + '?t=' + Date.now();
+    })
+    .catch(err => console.error('讀取最新圖片失敗:', err));
 </script>
 
   <footer>
