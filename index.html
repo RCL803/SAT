@@ -151,16 +151,20 @@
       </thead>
       <tbody>
         <tr>
-          <td>SYS</td>
+          <td>收縮壓 (SYS)</td>
           <td id="SYS"> </td>
         </tr>
         <tr>
-          <td>DIA</td>
+          <td>舒張壓 (DIA)</td>
           <td id="DIA"> </td>
         </tr>
         <tr>
-          <td>結果</td>
+          <td>量測結果結果</td>
           <td id="result"> </td>
+        </tr>
+        <tr>
+         <td>量測計算方式</td>
+         <th>y_prime = 0.0859 * DIA + 102.11→ RMSE= abs(SYS - y_prime)→ RMSE > 3 為異常 ,  RMSE <= 3 為正常</td>
         </tr>
       </tbody>
     </table>
