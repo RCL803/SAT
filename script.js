@@ -71,51 +71,27 @@ setInterval(() => {
   }
 }, 1000);
 
-// 更新血壓結果顯示
-function updateBpResult(sys, dia, result) {
-    document.getElementById('sys').innerText = "SYS: " + sys;
-    document.getElementById('dia').innerText = "DIA: " + dia;
-    document.getElementById('status').innerText = "結果：" + result;
-}
+<script>
+// 從 GitHub API 獲取 images 資料夾內的檔案
+fetch('https://api.github.com/repos/RCL803/SAT/contents/images')
+  .then(response => response.json())
+  .then(data => {
+    // 根據上傳時間（commit date）排序圖片
+    data.sort((a, b) => new Date(b.commit.committer.date) - new Date(a.commit.committer.date));
 
-// WebSocket 處理接收到的訊息
-socket.onmessage = function(event) {
-    const message = event.data;
-    const [sys, dia, result, imageUrl] = message.split(', ');
+    // 取得最新圖片的檔案名稱
+    const latestImage = data[0].name;
 
-    // 更新血壓結果
-    updateBpResult(sys, dia, result);
+    // 創建圖片的 GitHub URL
+    const imageUrl = `https://raw.githubusercontent.com/RCL803/SAT/main/images/${latestImage}`;
 
-    // 顯示血壓照片
-    document.getElementById('bp-photo').src = imageUrl;  // 使用收到的圖片 URL
-};
-async function fetchBPResults() {
-    try {
-        // 發送請求到後端
-        const response = await fetch('http://127.0.0.1:8000/latest-data');
-        
-        // 檢查請求是否成功
-        if (!response.ok) {
-            throw new Error("Failed to fetch data");
-        }
-
-        // 解析返回的 JSON 數據
-        const data = await response.json();
-
-        // 打印返回的數據，以便調試
-        console.log(data);  // 在控制台中查看返回的數據
-
-        // 顯示血壓數據和圖片
-        document.getElementById('sys').innerText = "SYS: " + data.SYS;
-        document.getElementById('dia').innerText = "DIA: " + data.DIA;
-        document.getElementById('status').innerText = "結果: " + data.result;
-
-        // 顯示圖片（如果有圖片數據）
-        document.getElementById('bp-photo').src = 'data:image/jpeg;base64,' + data.image;
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    }
-}
+    // 更新圖片的 src 屬性為最新圖片 URL
+    document.getElementById("bp-photo").src = imageUrl;
+  })
+  .catch(error => {
+    console.error('Error fetching data from GitHub:', error);
+  });
+</script>
 
 // 頁面載入時自動呼叫
 window.onload = fetchBPResults;
