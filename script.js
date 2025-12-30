@@ -98,7 +98,7 @@ fetch('https://api.github.com/repos/RCL803/SAT/commits?path=images&per_page=1')
 fetch('https://raw.githubusercontent.com/RCL803/SAT/main/bp.json?t=' + Date.now())
   .then(res => res.json())
   .then(data => {
-    document.getElementById("SYS").textContent = data.SYS;
+    document.getElementById("SYS").textContent = "測試成功: " + (data.SYS || "沒抓到資料");
     document.getElementById("DIA").textContent = data.DIA;
     document.getElementById("result").textContent = data.result;
   })
