@@ -149,7 +149,7 @@
 fetch('https://raw.githubusercontent.com/RCL803/SAT/main/bp.json?t=' + Date.now())
   .then(res => res.json())
   .then(data => {
-    document.getElementById("SYS").textContent = "data.SYS;
+    document.getElementById("SYS").textContent = data.SYS;
     document.getElementById("DIA").textContent = data.DIA;
     document.getElementById("result").textContent = data.result;
   })
