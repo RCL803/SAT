@@ -94,9 +94,7 @@ fetch('https://api.github.com/repos/RCL803/SAT/commits?path=images&per_page=1')
     document.getElementById("bp-photo").src = imageUrl;
   })
   .catch(error => console.error('Error fetching latest image:', error));
-</script>
 
-<script>
 fetch('https://raw.githubusercontent.com/RCL803/SAT/main/bp.json?t=' + Date.now())
   .then(res => res.json())
   .then(data => {
@@ -106,6 +104,7 @@ fetch('https://raw.githubusercontent.com/RCL803/SAT/main/bp.json?t=' + Date.now(
   })
   .catch(err => console.error('讀取血壓數據失敗:', err));
 </script>
+
 
 // 頁面載入時自動呼叫
 window.onload = fetchBPResults;
