@@ -177,3 +177,46 @@ footer {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* 健康管理頁面的樣式 */
+#health {
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  text-align: center;
+}
+
+/* 血壓辨識結果區塊 */
+#bp-results {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.bp-data p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+/* 讓圖片居中顯示並調整大小 */
+.bp-image {
+  margin-top: 20px;
+  border: 5px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  max-width: 100%;  /* 確保圖片在小屏幕上也能適應 */
+}
+
+/* 針對健康管理頁面加一點間距和對齊 */
+#health h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+#bp-results h3 {
+  font-size: 1.8rem;
+  margin-top: 20px;
+}
+
