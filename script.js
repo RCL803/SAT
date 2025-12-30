@@ -73,23 +73,27 @@ setInterval(() => {
 
 <script>
 // 從 GitHub API 獲取 images 資料夾內的檔案
-fetch('https://api.github.com/repos/RCL803/SAT/contents/images')
+fetch('https://api.github.com/repos/RCL803/SAT/commits?path=images&per_page=1')
   .then(response => response.json())
-  .then(data => {
-    // 根據上傳時間（commit date）排序圖片
-    data.sort((a, b) => new Date(b.commit.committer.date) - new Date(a.commit.committer.date));
+  .then(commits => {
+    const latestCommitSha = commits[0].sha;
 
-    // 取得最新圖片的檔案名稱
-    const latestImage = data[0].name;
+    // 再用 commit SHA 抓檔案清單
+    return fetch(`https://api.github.com/repos/RCL803/SAT/git/trees/${latestCommitSha}?recursive=1`);
+  })
+  .then(response => response.json())
+  .then(tree => {
+    // 找出 images 資料夾的檔案
+    const images = tree.tree.filter(file => file.path.startsWith('images/') && file.type === 'blob');
 
-    // 創建圖片的 GitHub URL
+    // 取最新的檔案（因為 commit API 已經是最新的）
+    const latestImage = images[0].path.split('/').pop();
+
+    // 建立 Raw URL
     const imageUrl = `https://raw.githubusercontent.com/RCL803/SAT/main/images/${latestImage}`;
-
-    // 更新圖片的 src 屬性為最新圖片 URL
     document.getElementById("bp-photo").src = imageUrl;
   })
-  .catch(error => {
-    console.error('Error fetching data from GitHub:', error);
+  .catch(error => console.error('Error fetching latest image:', error));
   });
 </script>
 
