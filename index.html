@@ -134,46 +134,43 @@
 </div>
 
 <!-- 健康管理頁 -->
+
 <div id="health" class="page">
+
   <h2>💪 健康管理</h2>
+
   <div id="bp-results">
+
     <h3>📊 血壓辨識結果</h3>
-    <p id="SYS">SYS: 等待資料中...</p>
-    <p id="DIA">DIA: 等待資料中...</p>
-    <p id="result">結果：等待資料中...</p>
+
+    <p id="SYS">SYS: </p>
+
+    <p id="DIA">DIA: </p>
+
+    <p id="result">結果： </p>
+
     <img id="bp-photo" src="" alt="血壓照片" width="300">
+
   </div>
+
 </div>
 
+
+
 <script>
-// 定義一個專門抓取血壓數據的函式
-function updateHealthData() {
-  console.log("開始抓取健康數據...");
 
-  // 1. 抓取血壓 JSON
-  fetch('https://raw.githubusercontent.com/RCL803/SAT/main/bp.json?t=' + Date.now())
-    .then(res => res.json())
-    .then(data => {
-      console.log("拿到 JSON:", data);
-      document.getElementById("SYS").textContent = "SYS: " + (data.SYS || "--");
-      document.getElementById("DIA").textContent = "DIA: " + (data.DIA || "--");
-      document.getElementById("result").textContent = "結果：" + (data.result || "--");
-    })
-    .catch(err => console.error('讀取血壓 JSON 失敗:', err));
+fetch('https://raw.githubusercontent.com/RCL803/SAT/main/latest.json?t=' + Date.now())
 
-  // 2. 抓取最新圖片 (透過 latest.json 或是你原本的 GitHub API 邏輯)
-  fetch('https://raw.githubusercontent.com/RCL803/SAT/main/latest.json?t=' + Date.now())
-    .then(res => res.json())
-    .then(data => {
-      if (data.latest_image) {
-        document.getElementById("bp-photo").src = data.latest_image + '?t=' + Date.now();
-      }
-    })
-    .catch(err => console.error('讀取最新圖片失敗:', err));
-}
+  .then(res => res.json())
 
-// 確保導覽列切換到健康頁面時，自動更新一次數據
-// 在原本的 showPage 函式裡會調用它
+  .then(data => {
+
+    document.getElementById("bp-photo").src = data.latest_image + '?t=' + Date.now();
+
+  })
+
+  .catch(err => console.error('讀取最新圖片失敗:', err));
+
 </script>
 
   <footer>
