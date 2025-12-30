@@ -133,10 +133,10 @@
   </div>
 </div>
 
-  <!-- 健康管理頁 -->
-  <div id="health" class="page">
-    <h2>💪 健康管理</h2>
-    <div id="bp-results">
+<!-- 健康管理頁 -->
+<div id="health" class="page">
+  <h2>💪 健康管理</h2>
+  <div id="bp-results">
     <h3>📊 血壓辨識結果</h3>
     <p id="sys">SYS: </p>
     <p id="dia">DIA: </p>
@@ -144,6 +144,28 @@
     <img id="bp-photo" src="" alt="血壓照片" width="300">
   </div>
 </div>
+
+<script>
+// 從 GitHub API 獲取 images 資料夾的檔案列表
+fetch('https://api.github.com/repos/RCL803/SAT/contents/images')
+  .then(response => response.json())
+  .then(data => {
+    // 根據提交時間排序圖片，最新的排最前面
+    data.sort((a, b) => new Date(b.commit.committer.date) - new Date(a.commit.committer.date));
+
+    // 取得最新的圖片檔案名稱
+    const latestImage = data[0].name;
+
+    // 生成圖片的 GitHub Raw URL
+    const imageUrl = `https://raw.githubusercontent.com/RCL803/SAT/refs/heads/main/images/${latestImage}`;
+
+    // 更新圖片的 src 屬性為最新圖片的 URL
+    document.getElementById("bp-photo").src = imageUrl;
+  })
+  .catch(error => {
+    console.error('Error fetching data from GitHub:', error);
+  });
+</script>
 
 
   <footer>
